@@ -1,37 +1,45 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="row">
-    <div class="col-md-12">
-        <h2><i class="fas fa-briefcase"></i> All Jobs</h2>
-        <hr>
-    </div>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="page-title mb-0"><i class="fas fa-briefcase me-2"></i>All Jobs</h2>
 </div>
 
-<div class="card shadow mb-4">
+{{-- Search Bar --}}
+<div class="card mb-4">
     <div class="card-body">
         <form action="{{ route('jobs.search') }}" method="GET">
-            <div class="row">
+            <div class="row g-2">
                 <div class="col-md-4">
-                    <input type="text" name="search" class="form-control"
-                        placeholder="Job title..." value="{{ request('search') }}">
+                    <div class="input-group">
+                        <span class="input-group-text" style="background: #eff6ff;">
+                            <i class="fas fa-search" style="color: #2563eb;"></i>
+                        </span>
+                        <input type="text" name="search" class="form-control"
+                            placeholder="Job title..." value="{{ request('search') }}">
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <input type="text" name="location" class="form-control"
-                        placeholder="Location..." value="{{ request('location') }}">
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <span class="input-group-text" style="background: #eff6ff;">
+                            <i class="fas fa-map-marker-alt" style="color: #2563eb;"></i>
+                        </span>
+                        <input type="text" name="location" class="form-control"
+                            placeholder="Location..." value="{{ request('location') }}">
+                    </div>
                 </div>
                 <div class="col-md-3">
                     <select name="job_type" class="form-select">
                         <option value="">All Types</option>
-                        <option value="full-time">Full Time</option>
-                        <option value="part-time">Part Time</option>
-                        <option value="contract">Contract</option>
-                        <option value="internship">Internship</option>
+                        <option value="full-time" {{ request('job_type') == 'full-time' ? 'selected' : '' }}>Full Time</option>
+                        <option value="part-time" {{ request('job_type') == 'part-time' ? 'selected' : '' }}>Part Time</option>
+                        <option value="contract" {{ request('job_type') == 'contract' ? 'selected' : '' }}>Contract</option>
+                        <option value="internship" {{ request('job_type') == 'internship' ? 'selected' : '' }}>Internship</option>
                     </select>
                 </div>
-                <div class="col-md-1">
-                    <button type="submit" class="btn btn-dark w-100">
-                        <i class="fas fa-search"></i>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-search me-1"></i> Search
                     </button>
                 </div>
             </div>
@@ -39,27 +47,41 @@
     </div>
 </div>
 
+{{-- Jobs List --}}
 @if($jobs->isEmpty())
-    <div class="alert alert-info text-center">Koi job nahi mili!</div>
+    <div class="card text-center p-5">
+        <i class="fas fa-search" style="font-size: 3rem; color: #cbd5e1;"></i>
+        <p class="text-muted mt-3">Koi job nahi mili!</p>
+    </div>
 @else
     @foreach($jobs as $job)
-    <div class="card shadow mb-3">
+    <div class="card mb-3">
         <div class="card-body">
-            <div class="row">
-                <div class="col-md-9">
-                    <h5>{{ $job->title }}</h5>
-                    <p class="text-muted mb-1">
-                        <i class="fas fa-building"></i> {{ $job->company->company_name }}
+            <div class="row align-items-center">
+                <div class="col-md-1 text-center">
+                    <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #1a3c6e, #2563eb); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-briefcase text-white"></i>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <h5 class="mb-1 fw-bold">{{ $job->title }}</h5>
+                    <p class="text-muted mb-1" style="font-size: 0.9rem;">
+                        <i class="fas fa-building me-1 text-primary"></i> {{ $job->company->company_name }}
                         &nbsp;|&nbsp;
-                        <i class="fas fa-map-marker-alt"></i> {{ $job->location }}
+                        <i class="fas fa-map-marker-alt me-1 text-danger"></i> {{ $job->location ?? 'Not specified' }}
                         &nbsp;|&nbsp;
-                        <i class="fas fa-money-bill"></i> {{ $job->salary }}
+                        <i class="fas fa-money-bill me-1 text-success"></i> {{ $job->salary ?? 'Not specified' }}
                     </p>
-                    <span class="badge bg-dark">{{ $job->job_type }}</span>
+                    <span class="badge" style="background: #eff6ff; color: #1a3c6e;">{{ $job->job_type }}</span>
+                    @if($job->deadline)
+                        <span class="badge ms-2" style="background: #fef9ee; color: #92400e;">
+                            <i class="fas fa-calendar me-1"></i> {{ $job->deadline }}
+                        </span>
+                    @endif
                 </div>
                 <div class="col-md-3 text-end">
-                    <a href="{{ route('jobs.show', $job->id) }}" class="btn btn-dark btn-sm">
-                        View Details
+                    <a href="{{ route('jobs.show', $job->id) }}" class="btn btn-primary">
+                        <i class="fas fa-eye me-1"></i> View Details
                     </a>
                 </div>
             </div>
