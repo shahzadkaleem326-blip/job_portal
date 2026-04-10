@@ -1,100 +1,9 @@
-{{-- @extends('layouts.app')
-
-@section('content')
-
-Hero Section
-<div style="background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; padding: 80px 0; margin: -24px -12px 40px; text-align: center;">
-    <h1 style="font-size: 3rem; font-weight: bold;">Find Your Dream Job</h1>
-    <p style="font-size: 1.2rem; margin: 15px 0 30px;">Thousands of jobs available — apply today!</p>
-    <form action="{{ route('jobs.search') }}" method="GET" class="d-flex justify-content-center gap-2">
-        <input type="text" name="search" class="form-control w-25" placeholder="Job title...">
-        <input type="text" name="location" class="form-control w-25" placeholder="Location...">
-        <button type="submit" class="btn btn-warning px-4">
-            <i class="fas fa-search"></i> Search
-        </button>
-    </form>
-</div>
-
-Stats Section 
-<div class="row text-center mb-5">
-    <div class="col-md-4">
-        <div class="card shadow p-4">
-            <h2 class="text-dark fw-bold">{{ $totalJobs }}</h2>
-            <p class="text-muted">Jobs Available</p>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card shadow p-4">
-            <h2 class="text-dark fw-bold">{{ $totalCompanies }}</h2>
-            <p class="text-muted">Companies</p>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card shadow p-4">
-            <h2 class="text-dark fw-bold">{{ $totalUsers }}</h2>
-            <p class="text-muted">Registered Users</p>
-        </div>
-    </div>
-</div>
-
-Latest Jobs 
-<h3 class="mb-4"><i class="fas fa-fire text-danger"></i> Latest Jobs</h3>
-@foreach($latestJobs as $job)
-<div class="card shadow mb-3">
-    <div class="card-body">
-        <div class="row align-items-center">
-            <div class="col-md-9">
-                <h5 class="mb-1">{{ $job->title }}</h5>
-                <p class="text-muted mb-1">
-                    <i class="fas fa-building"></i> {{ $job->company->company_name }}
-                    &nbsp;|&nbsp;
-                    <i class="fas fa-map-marker-alt"></i> {{ $job->location ?? 'Not specified' }}
-                    &nbsp;|&nbsp;
-                    <i class="fas fa-money-bill"></i> {{ $job->salary ?? 'Not specified' }}
-                </p>
-                <span class="badge bg-dark">{{ $job->job_type }}</span>
-            </div>
-            <div class="col-md-3 text-end">
-                <a href="{{ route('jobs.show', $job->id) }}" class="btn btn-dark btn-sm">
-                    View & Apply
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-@endforeach
-
-<div class="text-center mt-4 mb-5">
-    <a href="{{ route('jobs.index') }}" class="btn btn-dark btn-lg">
-        <i class="fas fa-briefcase"></i> View All Jobs
-    </a>
-</div>
-
- Register Section 
-@guest
-<div class="card shadow text-center p-5 mb-5" style="background: #f8f9fa;">
-    <h3>Ready to get started?</h3>
-    <p class="text-muted">Register as Job Seeker or Employer today!</p>
-    <div>
-        <a href="{{ route('register') }}" class="btn btn-dark btn-lg me-3">
-            <i class="fas fa-user-plus"></i> Register Now
-        </a>
-        <a href="{{ route('login') }}" class="btn btn-outline-dark btn-lg">
-            <i class="fas fa-sign-in-alt"></i> Login
-        </a>
-    </div>
-</div>
-@endguest
-
-@endsection --}}
-
-
 @extends('layouts.app')
 
 @section('content')
 
 {{-- Hero Section --}}
-<div style="background: linear-gradient(135deg, #1a3c6e, #2563eb); color: white; padding: 100px 0; margin: -24px -12px 40px; text-align: center; position: relative; overflow: hidden;">
+<div style="background: linear-gradient(135deg, #1a3c6e, #2563eb); color: white; padding: 80px 0; margin: -24px -12px 40px; text-align: center; position: relative; overflow: hidden;">
     <div style="position: absolute; top: -50px; right: -50px; width: 300px; height: 300px; background: rgba(255,255,255,0.05); border-radius: 50%;"></div>
     <div style="position: absolute; bottom: -80px; left: -80px; width: 400px; height: 400px; background: rgba(255,255,255,0.05); border-radius: 50%;"></div>
     <div class="container" style="position: relative; z-index: 1;">
@@ -117,6 +26,67 @@ Latest Jobs
                 </div>
             </div>
         </form>
+    </div>
+</div>
+
+{{-- 3 Role Cards --}}
+<div class="container mb-5">
+    <div class="text-center mb-4">
+        <h4 class="fw-bold" style="color: #1a3c6e;">
+            <i class="fas fa-th-large me-2"></i> Select Your Role
+        </h4>
+        <p class="text-muted">Apna role select karke apne panel mein jaein</p>
+    </div>
+    <div class="row g-4 justify-content-center">
+
+        {{-- Admin --}}
+        <div class="col-md-4">
+            <a href="{{ route('admin.dashboard') }}" class="text-decoration-none">
+                <div style="background: white; border-radius: 20px; padding: 35px 25px; text-align: center; border: 2px solid #e0eaff; transition: all 0.3s ease; box-shadow: 0 5px 20px rgba(37,99,235,0.1);">
+                    <div style="width: 75px; height: 75px; background: linear-gradient(135deg, #1a3c6e, #2563eb); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.8rem; color: white;">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h5 class="fw-bold mb-2" style="color: #1a3c6e;">Admin</h5>
+                    <p class="text-muted mb-3" style="font-size: 0.88rem;">Users, companies, jobs aur applications ko manage karo</p>
+                    <span class="btn btn-sm text-white px-4" style="background: linear-gradient(135deg, #1a3c6e, #2563eb); border-radius: 20px;">
+                        <i class="fas fa-arrow-right me-1"></i> Admin Panel
+                    </span>
+                </div>
+            </a>
+        </div>
+
+        {{-- Employer --}}
+        <div class="col-md-4">
+            <a href="{{ route('employer.dashboard') }}" class="text-decoration-none">
+                <div style="background: white; border-radius: 20px; padding: 35px 25px; text-align: center; border: 2px solid #d1fae5; transition: all 0.3s ease; box-shadow: 0 5px 20px rgba(16,185,129,0.1);">
+                    <div style="width: 75px; height: 75px; background: linear-gradient(135deg, #065f46, #10b981); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.8rem; color: white;">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h5 class="fw-bold mb-2" style="color: #065f46;">Employer</h5>
+                    <p class="text-muted mb-3" style="font-size: 0.88rem;">Jobs post karo, applications dekho aur company profile manage karo</p>
+                    <span class="btn btn-sm text-white px-4" style="background: linear-gradient(135deg, #065f46, #10b981); border-radius: 20px;">
+                        <i class="fas fa-arrow-right me-1"></i> Employer Panel
+                    </span>
+                </div>
+            </a>
+        </div>
+
+        {{-- Jobseeker --}}
+        <div class="col-md-4">
+            <a href="{{ route('jobseeker.dashboard') }}" class="text-decoration-none">
+                <div style="background: white; border-radius: 20px; padding: 35px 25px; text-align: center; border: 2px solid #fef3c7; transition: all 0.3s ease; box-shadow: 0 5px 20px rgba(245,158,11,0.1);">
+                    <div style="width: 75px; height: 75px; background: linear-gradient(135deg, #92400e, #f59e0b); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.8rem; color: white;">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h5 class="fw-bold mb-2" style="color: #92400e;">Jobseeker</h5>
+                    <p class="text-muted mb-3" style="font-size: 0.88rem;">Jobs dhundo, apply karo aur apna resume upload karo</p>
+                    <span class="btn btn-sm text-white px-4" style="background: linear-gradient(135deg, #92400e, #f59e0b); border-radius: 20px;">
+                        <i class="fas fa-arrow-right me-1"></i> Jobseeker Panel
+                    </span>
+                </div>
+            </a>
+        </div>
+
     </div>
 </div>
 
@@ -161,9 +131,9 @@ Latest Jobs
                 </div>
             </div>
             <div class="col-md-8">
-                <h5 class="mb-1 fw-600">{{ $job->title }}</h5>
+                <h5 class="mb-1">{{ $job->title }}</h5>
                 <p class="text-muted mb-1" style="font-size: 0.9rem;">
-                    <i class="fas fa-building me-1 text-primary"></i> {{ $job->company->company_name }}
+                    <i class="fas fa-building me-1 text-primary"></i> {{ $job->company->company_name ?? 'N/A' }}
                     &nbsp;|&nbsp;
                     <i class="fas fa-map-marker-alt me-1 text-danger"></i> {{ $job->location ?? 'Not specified' }}
                     &nbsp;|&nbsp;

@@ -14,7 +14,7 @@ use App\Http\Controllers\JobController;
 use App\Models\JobListing;
 use App\Models\Company;
 use App\Models\User;
-
+  
 Route::get('/', function () {
     $totalJobs = JobListing::where('status', 'active')->count();
     $totalCompanies = Company::count();
